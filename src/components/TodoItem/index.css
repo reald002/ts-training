@@ -1,0 +1,81 @@
+.todo-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+.todo-item .text{
+  padding: 16px 16px 16px 60px;
+  background: #fff;
+  color: var(--dark-grey);
+  border-top: 1px solid var(--light-grey);
+  outline: none;
+  width: 100%;
+
+  transition: color 0.4s;
+
+  font-size: 24px;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: 1.4em;
+}
+.todo-item .checkbox{
+  display: none;
+}
+.todo-item .checkbox + label{
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 100%;
+  border: 1px solid rgba(229, 229, 229, 0.56);
+
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.todo-item .checkbox + label::after{
+  display: none;
+  content: "";
+  width: 8px;
+  height: 18px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(210deg);
+  border-top: 1px solid green;
+  border-left: 1px solid green;
+}
+.todo-item .checkbox:checked + label{
+  border: 1px solid #d9d9d9;
+}
+.todo-item .checkbox:checked + label::after{
+  display: block;
+}
+.todo-item .checkbox:checked ~ .text{
+  color: var(--light-grey);
+  text-decoration: line-through;
+}
+.todo-item .remove-btn{
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  color: #af5b5e;
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+
+  opacity: .5;
+  transition: opacity 0.2s ease-out;
+
+  display: none;
+}
+.todo-item:hover .remove-btn{
+  display: block;
+}
+.todo-item .remove-btn:hover{
+  opacity: 1;
+}
