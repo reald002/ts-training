@@ -1,8 +1,15 @@
 import React from 'react';
-import {ITodoItem} from "../../core/interfaces";
 import './index.css';
 
-const TodoItem: React.FC<ITodoItem> = ({id, checked, text, onRemoveTodo, onCheckboxClick}) => {
+interface ITodoItemProp {
+  id: string,
+  checked: boolean,
+  text: string,
+  onRemoveTodo: (id: string) => void,
+  onCheckboxClick: (id: string) => void
+}
+
+const TodoItem: React.FC<ITodoItemProp> = ({ id, checked, text, onRemoveTodo, onCheckboxClick }) => {
 
   const handleRemoveBtnClick = (): void => {
     onRemoveTodo(id);
