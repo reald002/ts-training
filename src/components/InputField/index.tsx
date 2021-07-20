@@ -12,7 +12,6 @@ const InputField: React.FC<IInputFieldProps> = ({ visible, onEnterClick, onToggl
     if(event.key !== 'Enter' || (event.target as HTMLInputElement).value === '') {
       return;
     } else {
-      console.log(event.key);
       onEnterClick((event.target as HTMLInputElement).value);
       (event.target as HTMLInputElement).value = '';
     }
