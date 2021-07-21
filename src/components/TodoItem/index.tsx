@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 
-interface ITodoItemProp {
+interface ITodoItemProps {
   id: string,
   checked: boolean,
   text: string,
@@ -9,7 +9,7 @@ interface ITodoItemProp {
   onCheckboxClick: (id: string) => void
 }
 
-const TodoItem: React.FC<ITodoItemProp> = ({ id, checked, text, onRemoveTodo, onCheckboxClick }) => {
+const TodoItem: React.FC<ITodoItemProps> = ({ id, checked, text, onRemoveTodo, onCheckboxClick }) => {
 
   const handleRemoveBtnClick = (): void => {
     onRemoveTodo(id);
