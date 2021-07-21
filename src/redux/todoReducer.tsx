@@ -1,6 +1,6 @@
 import { ADD_TODO, REMOVE_TODO, TOGGLE_TODO } from './types';
 import { addTodoFunc, removeTodoFunc, toggleTodoFunc } from './functions';
-import {ITodoAction, ITodoState} from '../core/interfaces';
+import { ITodoAction, ITodoState } from '../core/interfaces';
 
 const initialState: ITodoState = {
   data: []

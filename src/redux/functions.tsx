@@ -1,4 +1,4 @@
-import {ITodo, ITodoState} from '../core/interfaces';
+import { ITodo, ITodoState } from '../core/interfaces';
 
 export const addTodoFunc = (state: ITodoState, text: string): ITodo[] => {
   const id: number = Date.now();

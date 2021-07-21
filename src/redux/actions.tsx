@@ -1,5 +1,5 @@
 import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO } from './types';
-import {IAddTodo, IRemoveTodo, IToggleTodo} from '../core/interfaces';
+import { IAddTodo, IRemoveTodo, IToggleTodo } from '../core/interfaces';
 
 export const addTodo = (text: string): IAddTodo => {
   return {
