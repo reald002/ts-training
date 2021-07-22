@@ -1,5 +1,4 @@
 import React, { KeyboardEvent } from "react";
-import { KEYS } from '../../core/constants';
 import './index.css';
 
 interface IInputFieldProps {
@@ -8,27 +7,29 @@ interface IInputFieldProps {
   onToggleAllClick: () => void
 }
 
-const InputField: React.FC<IInputFieldProps> = ({ visible, onEnterClick, onToggleAllClick }) => {
-  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if(event.key !== KEYS.enter || (event.target as HTMLInputElement).value === '') {
-      return;
-    } else {
-      onEnterClick((event.target as HTMLInputElement).value);
-      (event.target as HTMLInputElement).value = '';
+const InputField = ({ visible, onEnterClick, onToggleAllClick }: IInputFieldProps): JSX.Element => {
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
+    const isEnterKey = event.key === 'Enter';
+    const eventTarget = (event.target as HTMLInputElement);
+
+    if (isEnterKey && eventTarget.value) {
+      onEnterClick(eventTarget.value);
+      eventTarget.value = '';
     }
   };
 
-  const handleToggleAllClick = () => {
+  const handleToggleAllClick = (): void => {
     onToggleAllClick();
   };
 
   return (
     <div className="input-block">
       {visible &&
-      <button
-        onClick={handleToggleAllClick}
-        className="toggle-all">❯
-      </button>
+        <button
+          onClick={handleToggleAllClick}
+          className="toggle-all">❯
+        </button>
       }
       <input
         className="input-field"
