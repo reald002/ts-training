@@ -23,6 +23,7 @@
     "rules": {
         "semi": [2, "always"],
         "react/prop-types": 0,
-        "quotes": ["error", "single"]
+        "quotes": ["error", "single"],
+        "object-curly-spacing": ["error", "always"]
     }
 }
