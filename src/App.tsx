@@ -1,11 +1,19 @@
 import React from 'react';
-import Header from "./components/Header";
+import TodoItem from './components/TodoItem';
 import './App.css';
+
+const handleTodoRemove = () => {
+  console.log('todo removed');
+};
+
+const handleCheckboxClick = () => {
+  console.log('checkbox clicked');
+};
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <Header />
+      <TodoItem id={'1'} checked={true} text={'123'} onRemoveTodo={handleTodoRemove} onCheckboxClick={handleCheckboxClick} />
     </div>
   );
 };

@@ -1,0 +1,12 @@
+:root{
+  --dark-grey: #4d4d4d;
+  --light-grey: rgba(153, 153, 153, 0.42);
+  --h1-color: rgba(175, 47, 47, 0.15);
+  --body-backgroudn-color: #f5f5f5;
+  --body-color: #fff;
+  --checkbox-border-color: rgba(229, 229, 229, 0.56);
+  --checkbox-checked-border-color: #d9d9d9;
+  --checkbox-check-color: green;
+  --remove-btn-color: #af5b5e;
+  --remove-btn-background-color: transparent;
+}
