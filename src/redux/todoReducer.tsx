@@ -1,9 +1,10 @@
 import { TodoAction } from '../core/actionInterface';
 import { ITodoState } from '../core/stateInterface';
-import { ADD_TODO, PUT_TODOS, REMOVE_TODO, TOGGLE_TODO } from './types';
+import { ADD_TODO, LOAD_TODOS, PUT_TODOS, REMOVE_TODO, TOGGLE_TODO } from './types';
 
 const initialState: ITodoState = {
-  data: []
+  data: [],
+  loadingData: true
 };
 
 export const todoReducer = (state = initialState, action: TodoAction): ITodoState => {
@@ -28,7 +29,10 @@ export const todoReducer = (state = initialState, action: TodoAction): ITodoStat
         ))};
     }
     case PUT_TODOS: {
-      return {...state, data: [...action.data]};
+      return {...state, data: [...action.data], loadingData: false};
+    }
+    case LOAD_TODOS: {
+      return {...state, loadingData: true};
     }
     default:
       return state;
