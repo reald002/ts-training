@@ -49,7 +49,7 @@ function* watcherRemoveTodo() {
   yield takeEvery(REMOVE_TODO, workerRemoveTodo);
 }
 
-export default function* rootSaga () {
+export default function* rootSaga (): Generator {
   yield all([
     fork(watcherLoadTodos),
     fork(watcherToggleTodo),
