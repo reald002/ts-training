@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { takeEvery, put, fork, all } from 'redux-saga/effects';
 import { ADD_TODO, LOAD_TODOS, REMOVE_TODO, PATCH_TODO, TOGGLE_TODO } from './types';
 import { addTodoWithGeneratedId, endEditTodo, putTodos } from './actions';
@@ -9,7 +9,10 @@ import { store } from './index';
 /** GET TODOS */
 function* workerLoadTodos() {
   try {
-    const data: ITodo[] = yield axios.get(`${process.env.REACT_APP_SERVER_URL}/todos`).then(res => res.data);
+    const data: ITodo[] = yield axios
+      .get(
+        `${process.env.REACT_APP_SERVER_URL}/todos`)
+      .then(res => res.data);
 
     yield put(putTodos(data));
   } catch (e) {
@@ -25,7 +28,11 @@ function* watcherLoadTodos() {
 function* workerAddTodo({ text }: IAddTodo) {
   try {
     if(!text) return;
-    const { data } = yield axios.post(`${process.env.REACT_APP_SERVER_URL}/todos`, { text });
+    const data: ITodo = yield axios
+      .post(
+        `${process.env.REACT_APP_SERVER_URL}/todos`,
+        { text })
+      .then(res => res.data);
 
     yield put(addTodoWithGeneratedId(data.text, data._id));
   } catch (e) {
@@ -40,7 +47,8 @@ function* watcherAddTodo() {
 /** TOGGLE TODO */
 function* workerToggleTodo({ id }: IToggleTodo) {
   try {
-    const currentTodo: Partial<ITodo> | undefined = store.getState().todos.data.find(todo => todo._id === id);
+    const currentTodo: Partial<ITodo> | undefined = store
+      .getState().todos.data.find(todo => todo._id === id);
 
     yield axios.patch(`${process.env.REACT_APP_SERVER_URL}/todos/${id}`, currentTodo);
   } catch (e) {
@@ -55,7 +63,12 @@ function* watcherToggleTodo() {
 /** PATCH TODO */
 function* workerPatchTodo({todo}: IPatchTodo) {
   try {
-    const {data}: AxiosResponse = yield axios.patch(`${process.env.REACT_APP_SERVER_URL}/todos/${todo._id}`, { text: todo.text });
+    const data: ITodo = yield axios
+      .patch(
+        `${process.env.REACT_APP_SERVER_URL}/todos/${todo._id}`,
+        { text: todo.text })
+      .then(res => res.data);
+
     yield put(endEditTodo(data));
   } catch (e) {
     console.log(e);
