@@ -18,7 +18,7 @@ export interface IRemoveTodo extends IActionType {
 }
 
 export interface IPatchTodo extends IActionType {
-  todo: Pick<ITodo, "_id" | "text">
+  todo: Pick<ITodo, '_id' | 'text'>
 }
 
 export interface IToggleTodo extends IActionType {
@@ -36,6 +36,8 @@ export interface IStartEditTodo extends IActionType {
 export interface IEndEditTodo extends IActionType{
   todo: Partial<ITodo>
 }
+
+export type ISetSuccessFalse = IActionType;
 
 export type ILoadTodos = IActionType;
 

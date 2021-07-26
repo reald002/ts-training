@@ -7,3 +7,4 @@ export const LOAD_TODOS = 'LOAD_TODOS';
 export const PUT_TODOS = 'PUT_TODOS';
 export const START_EDIT_TODO = 'START_EDIT_TODO';
 export const END_EDIT_TODO = 'END_EDIT_TODO';
+export const SET_SUCCESS_FALSE = 'SET_SUCCESS_FALSE';

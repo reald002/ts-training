@@ -7,7 +7,7 @@ import {
   PUT_TODOS,
   ADD_TODO_WITH_GENERATED_ID,
   START_EDIT_TODO,
-  END_EDIT_TODO
+  END_EDIT_TODO, SET_SUCCESS_FALSE
 } from './types';
 import {
   IAddTodo,
@@ -15,7 +15,7 @@ import {
   ILoadTodos,
   IPutTodos,
   IRemoveTodo, IStartEditTodo,
-  IPatchTodo, IToggleTodo
+  IPatchTodo, IToggleTodo, ISetSuccessFalse
 } from '../core/actionInterface';
 import { ITodo } from '../core/todoInterface';
 
@@ -48,7 +48,7 @@ export const toggleTodo = (id: string): IToggleTodo => {
   };
 };
 
-export const patchTodo = (todo: Pick<ITodo, "_id" | "text">): IPatchTodo => {
+export const patchTodo = (todo: Pick<ITodo, '_id' | 'text'>): IPatchTodo => {
   return {
     type: PATCH_TODO,
     todo
@@ -79,5 +79,11 @@ export const endEditTodo = (todo: Partial<ITodo>): IEndEditTodo => {
   return {
     type: END_EDIT_TODO,
     todo
+  };
+};
+
+export const setSuccessFalse = (): ISetSuccessFalse => {
+  return {
+    type: SET_SUCCESS_FALSE,
   };
 };
