@@ -13,18 +13,18 @@ import {
 
 const initialState: ITodoState = {
   data: [],
-  loading: true,
+  loadingData: true,
   success: false
 };
 
 export const todoReducer = (state = initialState, action: TodoAction): ITodoState => {
   switch (action.type) {
     case ADD_TODO: {
-      return {...state, loading: true};
+      return {...state};
     }
     case ADD_TODO_WITH_GENERATED_ID: {
       const { data } = state;
-      return {...state, loading: false, data: [...data, { _id: action.id, text: action.text, checked: false, isEditing: false }]};
+      return {...state, data: [...data, { _id: action.id, text: action.text, checked: false, isEditing: false }]};
     }
     case REMOVE_TODO: {
       return {...state, data: state.data.filter(({_id}) => _id !== action.id)};
@@ -42,20 +42,20 @@ export const todoReducer = (state = initialState, action: TodoAction): ITodoStat
         ))};
     }
     case PUT_TODOS: {
-      return {...state, data: [...action.data], loading: false};
+      return {...state, data: [...action.data], loadingData: false};
     }
     case LOAD_TODOS: {
-      return {...state, loading: true};
+      return {...state, loadingData: true};
     }
     case START_EDIT_TODO: {
-      return {...state, loading: true, data: state.data.map(todo => (
+      return {...state, data: state.data.map(todo => (
         todo._id === action.id
           ? {...todo, isEditing: true}
           : todo
         ))};
     }
     case END_EDIT_TODO: {
-      return {...state, loading: false, data: state.data.map(todo => (
+      return {...state, data: state.data.map(todo => (
           todo._id === action.todo._id
             ? {...todo, text: action.todo.text ?? todo.text, isEditing: false}
             : todo
