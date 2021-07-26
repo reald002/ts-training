@@ -1,5 +1,6 @@
 import { ITodo } from './todoInterface';
 
 export interface ITodoState {
-  data: ITodo[]
+  data: ITodo[],
+  loadingData: boolean
 }

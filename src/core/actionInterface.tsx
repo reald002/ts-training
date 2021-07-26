@@ -1,3 +1,5 @@
+import { ITodo } from './todoInterface';
+
 export interface IActionType {
   type: string
 }
@@ -14,4 +16,10 @@ export interface IToggleTodo extends IActionType {
   id: string
 }
 
-export type TodoAction = IAddTodo & IRemoveTodo & IToggleTodo;
+export interface IPutTodos extends IActionType {
+  data: ITodo[]
+}
+
+export type ILoadTodos = IActionType;
+
+export type TodoAction = IAddTodo & IRemoveTodo & IToggleTodo & IPutTodos;
