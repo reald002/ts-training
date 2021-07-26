@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { takeEvery, put, fork, all } from 'redux-saga/effects';
-import { ADD_TODO, LOAD_TODOS, REMOVE_TODO, TOGGLE_TODO } from './types';
-import { putTodos } from './actions';
+import { ADD_TODO, LOAD_TODOS, REMOVE_TODO, PATCH_TODO, TOGGLE_TODO } from './types';
+import { addTodoWithGeneratedId, endEditTodo, putTodos } from './actions';
 import { ITodo } from '../core/todoInterface';
-import { IAddTodo, IRemoveTodo, IToggleTodo } from '../core/actionInterface';
+import { IAddTodo, IRemoveTodo, IPatchTodo, IToggleTodo } from '../core/actionInterface';
 import { store } from './index';
 
 /** GET TODOS */
@@ -24,7 +24,10 @@ function* watcherLoadTodos() {
 /** ADD TODO */
 function* workerAddTodo({ text }: IAddTodo) {
   try {
-    yield axios.post(`${process.env.REACT_APP_SERVER_URL}/todos`, { text });
+    if(!text) return;
+    const { data } = yield axios.post(`${process.env.REACT_APP_SERVER_URL}/todos`, { text });
+
+    yield put(addTodoWithGeneratedId(data.text, data._id));
   } catch (e) {
     console.log(e);
   }
@@ -49,6 +52,20 @@ function* watcherToggleTodo() {
   yield takeEvery(TOGGLE_TODO, workerToggleTodo);
 }
 
+/** PATCH TODO */
+function* workerPatchTodo({todo}: IPatchTodo) {
+  try {
+    const {data}: AxiosResponse = yield axios.patch(`${process.env.REACT_APP_SERVER_URL}/todos/${todo._id}`, { text: todo.text });
+    yield put(endEditTodo(data));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function* watcherPatchTodo() {
+  yield takeEvery(PATCH_TODO, workerPatchTodo);
+}
+
 /** REMOVE TODO */
 function* workerRemoveTodo({ id }: IRemoveTodo) {
   try {
@@ -69,5 +86,6 @@ export default function* rootSaga (): Generator {
     fork(watcherAddTodo),
     fork(watcherToggleTodo),
     fork(watcherRemoveTodo),
+    fork(watcherPatchTodo),
   ]);
 }

@@ -8,6 +8,7 @@
   padding: 16px 16px 16px 60px;
   background: var(--body-backgroudn-color);
   color: var(--dark-grey);
+  border: none;
   border-top: 1px solid var(--light-grey);
   outline: none;
   width: 100%;
@@ -56,26 +57,33 @@
   color: var(--light-grey);
   text-decoration: line-through;
 }
-.todo-item .remove-btn{
+.todo-item .btn{
   position: absolute;
-  right: 20px;
   top: 50%;
   transform: translateY(-50%);
-  background-color: var(--remove-btn-background-color);
   border: none;
-  color: var(--remove-btn-color);
   width: 40px;
   height: 40px;
   font-size: 30px;
-
   opacity: .5;
   transition: opacity 0.2s ease-out;
 
   display: none;
 }
-.todo-item:hover .remove-btn{
+.todo-item:hover .btn{
   display: block;
 }
-.todo-item .remove-btn:hover{
+.todo-item .btn:hover{
   opacity: 1;
+}
+.todo-item .remove-btn{
+  background-color: var(--remove-btn-background-color);
+  color: var(--remove-btn-color);
+  right: 20px;
+}
+.todo-item .edit-btn{
+  background-color: var(--edit-btn-background-color);
+  color: var(--edit-btn-color);
+  right: 50px;
+  font-size: 22px;
 }
