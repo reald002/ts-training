@@ -6,7 +6,7 @@ import {
   END_EDIT_TODO,
   LOAD_TODOS,
   PUT_TODOS,
-  REMOVE_TODO,
+  REMOVE_TODO, SET_SUCCESS_FALSE,
   START_EDIT_TODO,
   TOGGLE_TODO
 } from './types';
@@ -14,23 +14,23 @@ import {
 const initialState: ITodoState = {
   data: [],
   loadingData: true,
-  success: false
+  success: true
 };
 
 export const todoReducer = (state = initialState, action: TodoAction): ITodoState => {
   switch (action.type) {
     case ADD_TODO: {
-      return {...state};
+      return { ...state };
     }
     case ADD_TODO_WITH_GENERATED_ID: {
       const { data } = state;
-      return {...state, data: [...data, { _id: action.id, text: action.text, checked: false, isEditing: false }]};
+      return { ...state, data: [...data, { _id: action.id, text: action.text, checked: false, isEditing: false }] };
     }
     case REMOVE_TODO: {
-      return {...state, data: state.data.filter(({_id}) => _id !== action.id)};
+      return { ...state, data: state.data.filter(({ _id }) => _id !== action.id) };
     }
     case TOGGLE_TODO: {
-      return {...state, data: state.data.map(({_id, text, checked, isEditing}) => (
+      return { ...state, data: state.data.map(({ _id, text, checked, isEditing }) => (
           _id == action.id
             ? {
                 _id,
@@ -38,28 +38,35 @@ export const todoReducer = (state = initialState, action: TodoAction): ITodoStat
                 checked: !checked,
                 isEditing
               }
-            : {_id, text, checked, isEditing}
-        ))};
+            : { _id, text, checked, isEditing }
+        )) };
     }
     case PUT_TODOS: {
-      return {...state, data: [...action.data], loadingData: false};
+      return { ...state, data: [...action.data], loadingData: false };
     }
     case LOAD_TODOS: {
-      return {...state, loadingData: true};
+      return { ...state, loadingData: true };
     }
     case START_EDIT_TODO: {
-      return {...state, data: state.data.map(todo => (
+      return { ...state, data: state.data.map(todo => (
         todo._id === action.id
-          ? {...todo, isEditing: true}
+          ? { ...todo, isEditing: true }
           : todo
-        ))};
+        )) };
     }
     case END_EDIT_TODO: {
-      return {...state, data: state.data.map(todo => (
+      return { ...state, data: state.data.map(todo => (
           todo._id === action.todo._id
-            ? {...todo, text: action.todo.text ?? todo.text, isEditing: false}
+            ? { ...todo, text: action.todo.text ?? todo.text, isEditing: false }
             : todo
-        ))};
+        )) };
+    }
+    case SET_SUCCESS_FALSE: {
+      return  {
+        ...state,
+        loadingData: false,
+        success: false
+      };
     }
     default:
       return state;

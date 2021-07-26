@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { takeEvery, put, fork, all } from 'redux-saga/effects';
 import { ADD_TODO, LOAD_TODOS, REMOVE_TODO, PATCH_TODO, TOGGLE_TODO } from './types';
-import { addTodoWithGeneratedId, endEditTodo, putTodos } from './actions';
+import { addTodoWithGeneratedId, endEditTodo, putTodos, setSuccessFalse } from './actions';
 import { ITodo } from '../core/todoInterface';
 import { IAddTodo, IRemoveTodo, IPatchTodo, IToggleTodo } from '../core/actionInterface';
 import { store } from './index';
@@ -16,7 +16,7 @@ function* workerLoadTodos() {
 
     yield put(putTodos(data));
   } catch (e) {
-    console.log(e);
+    yield put(setSuccessFalse());
   }
 }
 
@@ -61,7 +61,7 @@ function* watcherToggleTodo() {
 }
 
 /** PATCH TODO */
-function* workerPatchTodo({todo}: IPatchTodo) {
+function* workerPatchTodo({ todo }: IPatchTodo) {
   try {
     const data: ITodo = yield axios
       .patch(

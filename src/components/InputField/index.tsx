@@ -1,36 +1,23 @@
-import React, { KeyboardEvent } from "react";
+import React, { KeyboardEvent } from 'react';
 import './index.css';
+import { useDispatch } from 'react-redux';
+import { addTodo } from '../../redux/actions';
 
-interface IInputFieldProps {
-  visible: boolean,
-  onEnterClick: (value: string) => void,
-  onToggleAllClick: () => void
-}
-
-const InputField = ({ visible, onEnterClick, onToggleAllClick }: IInputFieldProps): JSX.Element => {
+const InputField = (): JSX.Element => {
+  const dispatch = useDispatch();
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
     const isEnterKey = event.key === 'Enter';
     const eventTarget = (event.target as HTMLInputElement);
 
     if (isEnterKey && eventTarget.value) {
-      onEnterClick(eventTarget.value);
+      dispatch(addTodo(eventTarget.value));
       eventTarget.value = '';
     }
   };
 
-  const handleToggleAllClick = (): void => {
-    onToggleAllClick();
-  };
-
   return (
     <div className="input-block">
-      {visible &&
-        <button
-          onClick={handleToggleAllClick}
-          className="toggle-all">❯
-        </button>
-      }
       <input
         className="input-field"
         type="text"

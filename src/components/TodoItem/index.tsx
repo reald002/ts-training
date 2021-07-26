@@ -27,14 +27,14 @@ const TodoItem = ({ id, checked, text, isEditing }: ITodoItemProps): JSX.Element
 
   const handleEditClick = (): IStartEditTodo => dispatch(startEditTodo(id));
 
-  const handleBlur = (): IEndEditTodo => dispatch(endEditTodo({_id: id}));
+  const handleBlur = (): IEndEditTodo => dispatch(endEditTodo({ _id: id }));
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
     const isEnterKey = event.key === 'Enter';
     const eventTarget = (event.target as HTMLInputElement);
 
     if (isEnterKey && eventTarget.value) {
-      dispatch(patchTodo({_id: id, text: eventTarget.value}));
+      dispatch(patchTodo({ _id: id, text: eventTarget.value }));
     }
   };
 
